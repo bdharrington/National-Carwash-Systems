@@ -1,0 +1,56 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.9">
+  <POU Name="FB_Axis_NoHoming" Id="{67f12062-5bd4-44d4-b963-30cd41ea59ee}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION_BLOCK FB_Axis_NoHoming EXTENDS FB_AxisBase
+VAR_INPUT
+END_VAR
+VAR_OUTPUT
+END_VAR
+VAR
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[]]></ST>
+    </Implementation>
+    <Folder Name="01_SUPER_Overrides" Id="{cfe861f9-eb49-42ec-a7bf-5dfd11116946}" />
+    <Method Name="MotionControl" Id="{b0ccc3c6-e35f-4a18-adeb-ab31021524ff}" FolderPath="01_SUPER_Overrides\">
+      <Declaration><![CDATA[METHOD MotionControl : BOOL
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[SUPER^.MotionControl();
+
+IF bDriveEnabled AND NOT SelectedAxis.Status.Homed THEN
+	//Since homing does not matter for this axis, just home it wherever it sits when enabled
+	fbAxisHome(
+				Axis:= SelectedAxis, 
+				Execute:= TRUE, 
+				Position:= 0, 
+				HomingMode:= MC_Direct, 
+				BufferMode:= , 
+				Options:= , 
+				bCalibrationCam:= TRUE, 
+				Done=> , 
+				Busy=> , 
+				Active=> , 
+				CommandAborted=> , 
+				Error=> , 
+				ErrorID=> );
+END_IF]]></ST>
+      </Implementation>
+    </Method>
+    <LineIds Name="FB_Axis_NoHoming">
+      <LineId Id="9" Count="0" />
+    </LineIds>
+    <LineIds Name="FB_Axis_NoHoming.MotionControl">
+      <LineId Id="19" Count="0" />
+      <LineId Id="21" Count="0" />
+      <LineId Id="20" Count="0" />
+      <LineId Id="22" Count="0" />
+      <LineId Id="6" Count="12" />
+      <LineId Id="5" Count="0" />
+      <LineId Id="23" Count="0" />
+    </LineIds>
+  </POU>
+</TcPlcObject>

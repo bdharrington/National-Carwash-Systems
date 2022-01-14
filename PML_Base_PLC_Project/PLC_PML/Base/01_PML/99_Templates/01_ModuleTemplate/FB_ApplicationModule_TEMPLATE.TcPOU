@@ -1,0 +1,92 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.9">
+  <POU Name="FB_ApplicationModule_TEMPLATE" Id="{44c00981-3585-4538-bbce-d21beee256d9}" SpecialFunc="None">
+    <Declaration><![CDATA[(*
+	Use this module to copy to Application and use for a machine
+	
+	Remove the ABSTRACT from the definition and refactor(Rename) the FB
+*)
+
+FUNCTION_BLOCK ABSTRACT FB_ApplicationModule_TEMPLATE EXTENDS FB_PMLModuleBase
+VAR
+	//Define the Sub modules here for this module.  Also set the Interfaces in the initialize method.
+	//fbSubModule1				: FB_ApplicationModule_TEMPLATE;		// Sub module instantiation
+	//fbSubModule2				: FB_ApplicationModule_TEMPLATE;		// Sub module instantiation
+	
+	//temporary array of module base interfaces to be copied over to the base class a_itfPackMLBase variable
+	a_itfPackMLBase_init		: ARRAY[1..MAX_NO_OF_SUBUNITS] OF ITF_PMLModuleBase (*:= [fbSubModule1, fbSubModule2,*);
+
+	// Other machine specific variables here
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[//*********************************************************
+// Code implementation only in Execute() method for consistency with templates
+//*********************************************************
+]]></ST>
+    </Implementation>
+    <Folder Name="01_SUPER_Overrides" Id="{f8d8b220-72f9-48a9-9ea0-e208740f789c}">
+      <Folder Name="01_Properties" Id="{057d9d1a-ee49-4f19-8a8e-42e6aa4c339e}">
+        <Folder Name="01_Config" Id="{331100b9-f98f-4747-8f54-d0fce7db7a42}" />
+        <Folder Name="02_Control" Id="{ae3e5afd-d53d-4093-8ebe-aff2e7e7d938}" />
+        <Folder Name="03_Status" Id="{33277d99-4da9-43f5-93be-20a601b15ef0}" />
+      </Folder>
+      <Folder Name="02_Methods" Id="{19c5cdd7-570a-4a8c-8c2e-0d3729a276d3}" />
+      <Folder Name="03_TransitionStates" Id="{dc4f9408-7e17-43e6-92f9-f3fb8ef0556c}" />
+      <Folder Name="04_PrimaryStates" Id="{38edaf77-9798-4b46-b36f-091ed1d56038}" />
+    </Folder>
+    <Folder Name="02_Properties" Id="{622b930f-94e4-47af-8e64-1bce8c192706}">
+      <Folder Name="01_Config" Id="{60f94e06-65b6-4e11-88a4-cbfadd90a020}" />
+      <Folder Name="02_Control" Id="{0df8385a-1171-4989-abde-723998077e92}" />
+      <Folder Name="03_Status" Id="{49d473b9-52dd-4d23-948d-b6a2dc357f76}" />
+    </Folder>
+    <Folder Name="03_Methods" Id="{7a7ecdb0-5f2b-448e-937a-8df184a6286e}" />
+    <Method Name="CyclicLogic" Id="{12422e5e-a5c0-4929-9ad9-b99a74293d93}" FolderPath="03_Methods\">
+      <Declaration><![CDATA[// 
+// Cyclic Code
+METHOD CyclicLogic
+VAR
+	i								: UDINT;		//Generic iteration value
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[// Main loop of the parent module
+SUPER^.CyclicLogic();
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="Initialize" Id="{442f3bf5-5552-4c37-b5b2-a49ca36d752d}" FolderPath="03_Methods\">
+      <Declaration><![CDATA[METHOD Initialize
+VAR
+	i								: UDINT;		//Generic iteration value
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[
+// Define the interfaces to the different subunits (Must take place before SUPER^.initialize call)
+FOR i := 1 TO MAX_NO_OF_SUBUNITS DO
+	a_itfPackMLBase[i] := a_itfPackMLBase_init[i];
+END_FOR
+
+
+// Init of the parent class object (Must be called AFTER most local init code, since the sub module interface array assignments should be made here, and then operated on within the module base init
+SUPER^.Initialize();
+]]></ST>
+      </Implementation>
+    </Method>
+    <LineIds Name="FB_ApplicationModule_TEMPLATE">
+      <LineId Id="89" Count="2" />
+      <LineId Id="9" Count="0" />
+    </LineIds>
+    <LineIds Name="FB_ApplicationModule_TEMPLATE.CyclicLogic">
+      <LineId Id="54" Count="1" />
+      <LineId Id="52" Count="0" />
+    </LineIds>
+    <LineIds Name="FB_ApplicationModule_TEMPLATE.Initialize">
+      <LineId Id="108" Count="0" />
+      <LineId Id="100" Count="1" />
+      <LineId Id="106" Count="1" />
+      <LineId Id="98" Count="1" />
+      <LineId Id="29" Count="1" />
+      <LineId Id="112" Count="0" />
+    </LineIds>
+  </POU>
+</TcPlcObject>

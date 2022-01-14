@@ -1,0 +1,115 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.9">
+  <POU Name="FB_PMLStateLogger" Id="{8b359582-8387-45ce-89d5-2a1b5888ef7a}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION_BLOCK FB_PMLStateLogger
+VAR_IN_OUT
+	a_fbPMLAlarms			: ARRAY[1..48] OF FB_TcAlarm;		//Array of alarms for Core PackML events that exist in any PackML enabled module
+END_VAR
+VAR_INPUT
+	sModulePrefix : STRING;	//Prefix String for any
+	eState	: E_PMLState;
+	///Mode : DINT;
+END_VAR
+VAR_OUTPUT
+END_VAR
+VAR
+	eLastState : E_PMLState := E_PMLState.ePMLState_Aborted;
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[IF eState <> eLastState THEN
+	CASE eState OF
+		E_PMLState.ePMLState_Starting:
+			a_fbPMLAlarms[E_PMLAlarms.StateStartingEnter].Raise(0);
+		E_PMLState.ePMLState_Execute:
+			a_fbPMLAlarms[E_PMLAlarms.StateExecuteEnter].Raise(0);
+		E_PMLState.ePMLState_Completing:
+			a_fbPMLAlarms[E_PMLAlarms.StateCompletingEnter].Raise(0);
+		E_PMLState.ePMLState_Complete:
+			a_fbPMLAlarms[E_PMLAlarms.StateCompleteEnter].Raise(0);
+		E_PMLState.ePMLState_Resetting:
+			a_fbPMLAlarms[E_PMLAlarms.StateResettingEnter].Raise(0);
+		E_PMLState.ePMLState_Idle:
+			a_fbPMLAlarms[E_PMLAlarms.StateIdleEnter].Raise(0);
+		E_PMLState.ePMLState_Holding:
+			a_fbPMLAlarms[E_PMLAlarms.StateHoldingEnter].Raise(0);
+		E_PMLState.ePMLState_Held:
+			a_fbPMLAlarms[E_PMLAlarms.StateHeldEnter].Raise(0);
+		E_PMLState.ePMLState_Unholding:
+			a_fbPMLAlarms[E_PMLAlarms.StateUnholdingEnter].Raise(0);
+		E_PMLState.ePMLState_Suspending:
+			a_fbPMLAlarms[E_PMLAlarms.StateSuspendingEnter].Raise(0);
+		E_PMLState.ePMLState_Suspended:
+			a_fbPMLAlarms[E_PMLAlarms.StateSuspendedEnter].Raise(0);
+		E_PMLState.ePMLState_Unsuspending:
+			a_fbPMLAlarms[E_PMLAlarms.StateUnsuspendingEnter].Raise(0);
+		E_PMLState.ePMLState_Stopping:
+			a_fbPMLAlarms[E_PMLAlarms.StateStoppingEnter].Raise(0);
+		E_PMLState.ePMLState_Stopped:
+			a_fbPMLAlarms[E_PMLAlarms.StateStoppedEnter].Raise(0);
+		E_PMLState.ePMLState_Aborting:
+			a_fbPMLAlarms[E_PMLAlarms.StateAbortingEnter].Raise(0);
+		E_PMLState.ePMLState_Aborted:
+			a_fbPMLAlarms[E_PMLAlarms.StateAbortedEnter].Raise(0);
+		E_PMLState.ePMLState_Clearing:
+			a_fbPMLAlarms[E_PMLAlarms.StateClearingEnter].Raise(0);
+		E_PMLState.ePMLState_Undefined:
+			a_fbPMLAlarms[E_PMLAlarms.StateUndefinedEnter].Raise(0);
+
+	END_CASE
+	
+	CASE eLastState OF
+		E_PMLState.ePMLState_Starting:
+			a_fbPMLAlarms[E_PMLAlarms.StateStartingEnter].Clear(0,0);
+		E_PMLState.ePMLState_Execute:
+			a_fbPMLAlarms[E_PMLAlarms.StateExecuteEnter].Clear(0,0);
+		E_PMLState.ePMLState_Completing:
+			a_fbPMLAlarms[E_PMLAlarms.StateCompletingEnter].Clear(0,0);
+		E_PMLState.ePMLState_Complete:
+			a_fbPMLAlarms[E_PMLAlarms.StateCompleteEnter].Clear(0,0);
+		E_PMLState.ePMLState_Resetting:
+			a_fbPMLAlarms[E_PMLAlarms.StateResettingEnter].Clear(0,0);
+		E_PMLState.ePMLState_Idle:
+			a_fbPMLAlarms[E_PMLAlarms.StateIdleEnter].Clear(0,0);
+		E_PMLState.ePMLState_Holding:
+			a_fbPMLAlarms[E_PMLAlarms.StateHoldingEnter].Clear(0,0);
+		E_PMLState.ePMLState_Held:
+			a_fbPMLAlarms[E_PMLAlarms.StateHeldEnter].Clear(0,0);
+		E_PMLState.ePMLState_Unholding:
+			a_fbPMLAlarms[E_PMLAlarms.StateUnholdingEnter].Clear(0,0);
+		E_PMLState.ePMLState_Suspending:
+			a_fbPMLAlarms[E_PMLAlarms.StateSuspendingEnter].Clear(0,0);
+		E_PMLState.ePMLState_Suspended:
+			a_fbPMLAlarms[E_PMLAlarms.StateSuspendedEnter].Clear(0,0);
+		E_PMLState.ePMLState_Unsuspending:
+			a_fbPMLAlarms[E_PMLAlarms.StateUnsuspendingEnter].Clear(0,0);
+		E_PMLState.ePMLState_Stopping:
+			a_fbPMLAlarms[E_PMLAlarms.StateStoppingEnter].Clear(0,0);
+		E_PMLState.ePMLState_Stopped:
+			a_fbPMLAlarms[E_PMLAlarms.StateStoppedEnter].Clear(0,0);
+		E_PMLState.ePMLState_Aborting:
+			a_fbPMLAlarms[E_PMLAlarms.StateAbortingEnter].Clear(0,0);
+		E_PMLState.ePMLState_Aborted:
+			a_fbPMLAlarms[E_PMLAlarms.StateAbortedEnter].Clear(0,0);
+		E_PMLState.ePMLState_Clearing:
+			a_fbPMLAlarms[E_PMLAlarms.StateClearingEnter].Clear(0,0);
+		E_PMLState.ePMLState_Undefined:
+			a_fbPMLAlarms[E_PMLAlarms.StateUndefinedEnter].Clear(0,0);
+
+	END_CASE
+	eLastState := eState;
+END_IF
+]]></ST>
+    </Implementation>
+    <LineIds Name="FB_PMLStateLogger">
+      <LineId Id="302" Count="35" />
+      <LineId Id="399" Count="0" />
+      <LineId Id="398" Count="0" />
+      <LineId Id="339" Count="37" />
+      <LineId Id="401" Count="0" />
+      <LineId Id="400" Count="0" />
+      <LineId Id="378" Count="3" />
+      <LineId Id="52" Count="0" />
+    </LineIds>
+  </POU>
+</TcPlcObject>

@@ -1,0 +1,97 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.9">
+  <Itf Name="ITF_PMLModuleBase" Id="{eca4a56b-850e-483e-b687-2de3b3950c24}">
+    <Declaration><![CDATA[INTERFACE ITF_PMLModuleBase EXTENDS ITF_UnitState
+]]></Declaration>
+    <Folder Name="01_Properties" Id="{b9b76dff-8c1e-4a81-8fb8-90bae0384924}">
+      <Folder Name="01_Config" Id="{c034098c-56e3-4732-a681-b27df2a6a3ee}" />
+      <Folder Name="02_Control" Id="{f156f415-4f70-402d-872f-de20fbc04916}" />
+      <Folder Name="03_Status" Id="{681bf848-54e8-410c-a596-7e58d3fea268}" />
+    </Folder>
+    <Folder Name="02_Methods" Id="{fbb15efd-8a92-4fbb-a79e-6108b9c86638}" />
+    <Property Name="AncestorIDs" Id="{ddc4ec9f-03b5-4a9a-9708-c7ae158f5b04}" FolderPath="01_Properties\01_Config\">
+      <Declaration><![CDATA[PROPERTY AncestorIDs : STRING]]></Declaration>
+      <Get Name="Get" Id="{f334f915-3beb-484a-b889-7d0a10f7ff80}">
+        <Declaration><![CDATA[]]></Declaration>
+      </Get>
+      <Set Name="Set" Id="{6f7535d2-f023-4f68-b8d5-8ced32bad9bc}">
+        <Declaration><![CDATA[]]></Declaration>
+      </Set>
+    </Property>
+    <Method Name="CyclicLogic" Id="{93d2f113-3cbc-4b7f-a56f-610da986a3d8}" FolderPath="02_Methods\">
+      <Declaration><![CDATA[METHOD CyclicLogic
+VAR_INPUT
+END_VAR
+]]></Declaration>
+    </Method>
+    <Property Name="Enabled" Id="{d2ef8559-89f7-4b1a-8a7a-48174a953874}" FolderPath="01_Properties\02_Control\">
+      <Declaration><![CDATA[PROPERTY Enabled : BOOL]]></Declaration>
+      <Get Name="Get" Id="{54ba9b0b-2822-4ef3-b25b-9c30c5987360}">
+        <Declaration><![CDATA[]]></Declaration>
+      </Get>
+      <Set Name="Set" Id="{c6163e65-6cf3-4a30-a648-3de95a4476c4}">
+        <Declaration><![CDATA[]]></Declaration>
+      </Set>
+    </Property>
+    <Property Name="LogModeChanges" Id="{3ebf3a99-dead-418c-b471-054c7c8d6544}" FolderPath="01_Properties\01_Config\">
+      <Declaration><![CDATA[PROPERTY LogModeChanges : BOOL]]></Declaration>
+      <Get Name="Get" Id="{e04dfd29-bd9f-4f54-828e-2fc4045c23bc}">
+        <Declaration><![CDATA[]]></Declaration>
+      </Get>
+      <Set Name="Set" Id="{1785a2f9-a528-437d-84c4-405797055f1f}">
+        <Declaration><![CDATA[]]></Declaration>
+      </Set>
+    </Property>
+    <Property Name="LogStateChanges" Id="{1b008608-b316-4d3a-ba87-f437076859ca}" FolderPath="01_Properties\01_Config\">
+      <Declaration><![CDATA[PROPERTY LogStateChanges : BOOL]]></Declaration>
+      <Get Name="Get" Id="{66bc6c53-f9e2-4511-89b6-29fb383f77e7}">
+        <Declaration><![CDATA[]]></Declaration>
+      </Get>
+      <Set Name="Set" Id="{a9b78c0c-4b3e-4169-a6c7-77bf1bd91d29}">
+        <Declaration><![CDATA[]]></Declaration>
+      </Set>
+    </Property>
+    <Property Name="Mode" Id="{68aa19f0-a027-4849-bb10-f5584ab8d043}" FolderPath="01_Properties\03_Status\">
+      <Declaration><![CDATA[PROPERTY Mode : E_PMLUnitMode]]></Declaration>
+      <Get Name="Get" Id="{e4c0be11-49fb-4f99-95fb-f87a759ebdeb}">
+        <Declaration><![CDATA[]]></Declaration>
+      </Get>
+    </Property>
+    <Property Name="ModeCommand" Id="{11907bf7-f645-420b-85af-3bf0127cd7f1}" FolderPath="01_Properties\02_Control\">
+      <Declaration><![CDATA[PROPERTY ModeCommand : DINT]]></Declaration>
+      <Set Name="Set" Id="{0cf2eb2e-aedc-4e54-afcc-be209278627f}">
+        <Declaration><![CDATA[]]></Declaration>
+      </Set>
+    </Property>
+    <Property Name="ModuleID" Id="{b15ae476-29f6-49b3-bc0b-8d8de1f9a2ad}" FolderPath="01_Properties\01_Config\">
+      <Declaration><![CDATA[PROPERTY ModuleID : DINT]]></Declaration>
+      <Get Name="Get" Id="{15915578-ed14-421a-b902-68fca348c24a}">
+        <Declaration><![CDATA[]]></Declaration>
+      </Get>
+      <Set Name="Set" Id="{2e8dc440-ac63-48e1-b6bf-7bd9cd9ed340}">
+        <Declaration><![CDATA[]]></Declaration>
+      </Set>
+    </Property>
+    <Property Name="ModuleName" Id="{da8f2502-5e83-49c9-bcb7-07c02f3fcb7b}" FolderPath="01_Properties\01_Config\">
+      <Declaration><![CDATA[PROPERTY ModuleName : STRING]]></Declaration>
+      <Get Name="Get" Id="{c93e64d6-b7f5-4fa1-96b7-7e8cdadc8f67}">
+        <Declaration><![CDATA[]]></Declaration>
+      </Get>
+      <Set Name="Set" Id="{0e6ed32b-5954-42fd-b96a-59359710d227}">
+        <Declaration><![CDATA[]]></Declaration>
+      </Set>
+    </Property>
+    <Property Name="State" Id="{b4219d5a-c372-49f7-9ab8-eeb66dadc5c9}" FolderPath="01_Properties\03_Status\">
+      <Declaration><![CDATA[PROPERTY State : E_PMLState]]></Declaration>
+      <Get Name="Get" Id="{54194ac0-e690-48c6-a0ad-f28c216e30b6}">
+        <Declaration><![CDATA[]]></Declaration>
+      </Get>
+    </Property>
+    <Property Name="StateCommand" Id="{1c454ada-e18d-4933-8772-ef90079bfec6}" FolderPath="01_Properties\02_Control\">
+      <Declaration><![CDATA[PROPERTY StateCommand : E_PMLCommand]]></Declaration>
+      <Set Name="Set" Id="{3495e55a-b4ad-4161-a7ba-1793fe13d390}">
+        <Declaration><![CDATA[]]></Declaration>
+      </Set>
+    </Property>
+  </Itf>
+</TcPlcObject>

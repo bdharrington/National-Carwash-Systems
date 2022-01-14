@@ -1,0 +1,100 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.9">
+  <POU Name="FB_TestMachine" Id="{2c95093d-76ee-4cc3-8575-572228d0f33c}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION_BLOCK FB_TestMachine EXTENDS FB_PMLModuleBase
+VAR
+	//Define the Sub modules here for this module.  Also set the Interfaces in the initialize method.
+	//fbSubModule1				: FB_ApplicationModule_TEMPLATE;		// Sub module instantiation
+	//fbSubModule2				: FB_ApplicationModule_TEMPLATE;		// Sub module instantiation
+	
+	fbEquipmentModule1			: FB_TestEquipment;
+	
+	//temporary array of module base interfaces to be copied over to the base class itfPackMLBase variable
+	a_itfPackMLBase_init		: ARRAY[1..MAX_NO_OF_SUBUNITS] OF ITF_PMLModuleBase := [fbEquipmentModule1](*, fbSubModule2,*);
+
+	// Other machine specific variables here
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[//*********************************************************
+// Code implementation only in Execute() method for consistency with templates
+//*********************************************************
+]]></ST>
+    </Implementation>
+    <Folder Name="01_SUPER_Overrides" Id="{5e9b4e2c-8fba-43eb-819c-987e031312ac}">
+      <Folder Name="01_Properties" Id="{634fd1b6-dad5-4e9e-9367-74456296cb26}">
+        <Folder Name="01_Config" Id="{4170eb0b-9f4f-451f-9ed8-3f001ea1577b}" />
+        <Folder Name="02_Control" Id="{11d2d71d-26c5-410c-86cd-e959c32bb7f7}" />
+        <Folder Name="03_Status" Id="{fabdd4a3-7ff1-4660-b248-948391106eb2}" />
+      </Folder>
+      <Folder Name="02_Methods" Id="{c3953f34-ed1a-428b-9606-4ec6f9f2f7c7}" />
+      <Folder Name="03_TransitionStates" Id="{a45da165-6d73-48f4-a889-4f9611c4e214}" />
+      <Folder Name="04_PrimaryStates" Id="{b76a681c-d1c4-46d2-aa2b-c930102fff84}" />
+    </Folder>
+    <Folder Name="02_Properties" Id="{767c9d08-62f0-4ca6-b575-19d9d4b3c113}">
+      <Folder Name="01_Config" Id="{685cfa39-c774-4e1d-8100-525ce0e7df27}" />
+      <Folder Name="02_Control" Id="{2657b13c-4021-4742-81a0-7df51a55f9f6}" />
+      <Folder Name="03_Status" Id="{2fd3819c-36d6-4d91-8453-146903a0296e}" />
+    </Folder>
+    <Folder Name="03_Methods" Id="{d8307a56-e490-4202-91f6-e43a3c856079}" />
+    <Method Name="CyclicLogic" Id="{5b74c83f-db11-4453-9064-49d908c073fb}" FolderPath="03_Methods\">
+      <Declaration><![CDATA[// 
+// Cyclic Code
+METHOD CyclicLogic
+VAR
+	i								: UDINT;		//Generic iteration value
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[// Main loop of the parent module
+SUPER^.CyclicLogic();
+
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="Initialize" Id="{bd9fa938-471e-42b0-b567-b03b19ce3ef2}" FolderPath="03_Methods\">
+      <Declaration><![CDATA[METHOD Initialize
+VAR
+	i								: UDINT;		//Generic iteration value
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[
+// Define the interfaces to the different subunits (Must take place before SUPER^.initialize call)
+FOR i := 1 TO MAX_NO_OF_SUBUNITS DO
+	a_itfPackMLBase[i] := a_itfPackMLBase_init[i];
+END_FOR
+
+fbEquipmentModule1.iMasterDataStructure_Adder 	:= iMasterDataStructure_Adder;
+fbEquipmentModule1.Enabled 						:=  TRUE;
+fbEquipmentModule1.ModuleName 					:=  'Test Equipment 1';
+fbEquipmentModule1.ModuleID 					:=  1;
+fbEquipmentModule1.AncestorIDs 					:= CONCAT(CONCAT(sAncestorIDs, DINT_TO_STRING(nModuleID)), '_');
+
+iMasterDataStructure_Adder.AddNodeAsChildByName(fbEquipmentModule1.ModuleName, sModuleName);
+
+// Init of the parent class object (Must be called AFTER most local init code, since the sub module interface array assignments should be made here, and then operated on within the module base init
+SUPER^.Initialize();
+]]></ST>
+      </Implementation>
+    </Method>
+    <LineIds Name="FB_TestMachine">
+      <LineId Id="89" Count="2" />
+      <LineId Id="9" Count="0" />
+    </LineIds>
+    <LineIds Name="FB_TestMachine.CyclicLogic">
+      <LineId Id="54" Count="1" />
+      <LineId Id="52" Count="0" />
+      <LineId Id="61" Count="0" />
+    </LineIds>
+    <LineIds Name="FB_TestMachine.Initialize">
+      <LineId Id="108" Count="0" />
+      <LineId Id="100" Count="1" />
+      <LineId Id="106" Count="1" />
+      <LineId Id="98" Count="0" />
+      <LineId Id="114" Count="5" />
+      <LineId Id="113" Count="0" />
+      <LineId Id="99" Count="0" />
+      <LineId Id="29" Count="1" />
+      <LineId Id="112" Count="0" />
+    </LineIds>
+  </POU>
+</TcPlcObject>

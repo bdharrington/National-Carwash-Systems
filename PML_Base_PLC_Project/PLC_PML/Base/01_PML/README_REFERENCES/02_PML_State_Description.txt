@@ -1,0 +1,97 @@
+PackML States:
+
+PackML allows you to transition from states. 
+There are two types of states: Acting and Wait. 
+Acting states are where the machine is processing some form of an activity. 
+Wait states identify that the machine has achieved a defined set of conditions (end user determined).
+
+Stopped – Wait –  
+The machine is powered and stationary after completing the STOPPING state. 
+All communications with other systems are functioning (if applicable). 
+A RESET command will cause an exit from STOPPED to the RESETTING state.
+
+Starting – Acting – 
+The machine completes the steps needed to start. 
+This state is entered as a result of a STARTING command (local or remote). 
+Following this command the machine will begin to “execute.”
+
+Idle – Wait – 
+This is the state which indicates that RESETTING is complete. 
+The machine will maintain the conditions which were achieved during the RESETTING state, 
+and perform operations required when the machine is in IDLE.
+
+Suspending – Acting – 
+This state shall be used when EXTERNAL (outside this unit machine but usually on the same integrated production line) 
+process conditions do not allow the machine to continue producing, that is, the machine leaves EXECUTE due to upstream 
+or downstream conditions on the line. This is typically due to a blocked or starved event. 
+This condition may be detected by a local machine sensor or based on a supervisory system external command. 
+While in the SUSPENDING state, the machine is typically brought to a controlled stop and then transitions to SUSPENDED upon state complete. 
+To be able to restart production correctly after the SUSPENDED state, all relevant process set-points and return status 
+of the procedures at the time of receiving the SUSPEND command must be saved in the machine controller when executing the SUSPENDING procedure.
+
+Suspended – Wait – Refer to SUSPENDING for when this state is used. In this state the machine shall not produce product. 
+It will either stop running or continue to cycle without producing until external process conditions return to normal, 
+at which time, the SUSPENDED state will transition to the UNSUSPENDING state, typically without any operator intervention.
+
+UnSuspending – Acting – Refer to SUSPENDING for when this state is used. This state is a result of process conditions returning to normal. 
+The UNSUSPENDING state initiates any required actions or sequences necessary to transition the machine from SUSPENDED back to EXECUTE. 
+To be able to restart production correctly after the SUSPENDED state, all relevant process set-points and return status of the procedures 
+at the time of receiving the SUSPEND command must be saved in the machine controller when executing the SUSPENDING procedure.
+
+Execute – Acting – Once the machine is processing materials it is in the EXECUTE state. Different machine modes will result in specific types 
+of EXECUTE activities. For example, if the machine is in the “Production” mode, the EXECUTE will result in products being produced, 
+while in “Clean Out” mode the EXECUTE state refers to the action of cleaning the machine.
+
+Stopping – Acting – This state is entered in response to a STOP command. While in this state the machine executes the logic 
+which brings it to a controlled stop as reflected by the STOPPED state. Normal STARTING of the machine cannot be initiated 
+unless RESETTING had taken place.
+
+Aborting – Acting – The ABORTING state can be entered at any time in response to the ABORT command or on the occurrence of a machine fault. 
+The aborting logic will bring the machine to a rapid safe stop.
+
+Aborted – Wait – The machine maintains status information relevant to the ABORT condition. 
+The machine can only exit the ABORTED state after an explicit CLEAR command, subsequently to manual intervention 
+to correct and reset the detected machine faults.
+
+Holding – Acting – This state shall be used when INTERNAL (inside this unit machine and not from another machine on the production line) 
+machine conditions do not allow the machine to continue producing, that is, the machine leaves EXECUTE due to internal conditions. 
+This is typically used for routine machine conditions that requires minor operator servicing to continue production. 
+This state can be initiated automatically or by an operator and can be easily recovered from. 
+An example of this would be a machine that requires an operator to periodically refill a glue dispenser or carton magazine 
+and due to the machine design, these operations cannot be performed while the machine is running. 
+Since these types of tasks are normal production operations, it is not desirable to go through aborting or stopping sequences, 
+and because these functions are integral to the machine they are not considered to be “external”. While in the HOLDING state, 
+the machine is typically brought to a controlled stop and then transitions to HELD upon state complete. 
+To be able to restart production correctly after the HELD state, all relevant process set-points and return status of the procedures 
+at the time of receiving the HOLD command must be saved in the machine controller when executing the HOLDING procedure.
+
+Held – Wait – Refer to HOLDING for when this state is used. In this state the machine shall not produce product. 
+It will either stop running or continue to dry cycle. A transition to the UNHOLDING state will occur when INTERNAL machine conditions 
+change or an UNHOLD command is initiated by an operator.
+
+Unholding – Acting – Refer to HOLDING for when this state is used. A machine will typically enter into UNHOLDING automatically 
+when INTERNAL conditions, material levels, for example, return to an acceptable level. 
+If an operator is required to perform minor servicing to replenish materials or make adjustments, 
+then the UNHOLD command may be initiated by the operator.
+
+Completing – Acting – This state is an automatic response from the EXECUTE state. Normal operation has run to completion, 
+i.e. processing of material at the infeed will stop.
+
+Complete – Wait – The machine has finished the COMPLETING state and is now waiting for a RESET command before transitioning to the RESETTING state.
+
+Resetting – Acting – This state is the result of a RESET command from the STOPPED or COMPLETE state. Faults and stop causes are reset. 
+RESETTING will typically cause safety devices to be energized and place the machine in the IDLE state where it will wait for a START command. 
+No hazardous motion should happen in this state.
+
+Clearing – Acting – Initiated by a state command to clear faults that may have occurred when ABORTING, 
+and are present in the ABORTED state before proceeding to a STOPPED state.
+
+    Blue = Acting State
+    Yellow = Wait State
+
+All of these transitions are happening as fast or as slow as you want it to be. We’ve implemented delays in certain phases. 
+Motion is a big thing when changing states. You’re working on slowing the machine down. You need to stop all components – in a completing state. 
+Not just stopping right away, you’re running things out.
+
+There are certain cases where states can be disabled, and certain cases where states happen instantly. 
+For example, a robot works faster than you can blink, as opposed to a wrapping machine.
