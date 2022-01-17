@@ -10,8 +10,7 @@ Should you have any questions regarding the provided sample code, please contact
 
 # Further Information
 
--- UPDATE THIS SECTION -- 
-Further Information on -- THIS REPO TOPIC -- can be found at the [Beckhoff Infosys](https://infosys.beckhof.com) under the [REPO TOPIC](https://infosys.beckhoff.com/content/1033/ethercatsystem/2469077771.html?id=8287668039751154112)
+Further Information on -- The applied standard (TR88) -- can be found at the [Beckhoff Infosys](https://infosys.beckhof.com) under the [PackML Standard](https://infosys.beckhoff.com/content/1033/tcplclib_tc3_packml/index.html?id=5826435593864500311 )
 
 ## Requirements
 
