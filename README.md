@@ -16,5 +16,5 @@ Further Information on -- The applied standard (TR88) -- can be found at the [Be
 
 The following components must be installed to run sample code:
 
-- [TE1000 TwinCAT 3 Engineering](https://www.beckhoff.com/en-en/products/automation/twincat/te1xxx-twincat-3-engineering/te1000.html) version 3.1.4024.0 or higher
-- -- UPDATE THIS SECTION --
+- [TE1000 TwinCAT 3 Engineering](https://www.beckhoff.com/en-en/products/automation/twincat/te1xxx-twincat-3-engineering/te1000.html) version 3.1.4024.22 or higher
+
