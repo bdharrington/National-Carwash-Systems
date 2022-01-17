@@ -1,7 +1,6 @@
 # About This Repository
 
--- UPDATE THIS SECTION -- 
-This Repository is a template meant for basing new public repos off of. A new GitHub repo can be based off this template to automatically import the same TwinCAT GitIgnore and README file templates. After importing, replace this text to match the desired repo descriptions. 
+This repository is a base frame work implementing the PackML standard by OMAC specifically the ANSI/ISA-TR88.00.02-2015 ISA88 for machine control. It is freely shared as a base to begin new projects from in an effort to make project coding more efficient and to allow developers to begin coding their specific machine faster by not needing to setup a new project structure for each new project.
 
 This sample is created by [Beckhoff Automation LLC.](https://www.beckhoff.com/en-us/), and is provided as-is under the Zero-Clause BSD license.
 
